@@ -1,0 +1,27 @@
+{% extends "base/base.html" %}
+
+{% block title %}LIST USUARIOS{% endblock %}
+
+{% block content %}
+<table class="table tabel-striped">
+    <th>Nombre: </th>
+    <th>Direccion: </th>
+    <th>Edad: </th>
+    <th></th>  
+    {% for lead in object_list %}
+    <tr>
+        <td>{{ lead.name }}</td>
+        <td>{{ lead.address }}</td>
+        <td>{{ lead.age }}</td>
+        <td><a href="{% url 'home:detail_lead' lead.pk %}">
+        <i class="fas fa-edit" style="color: #3440FE;">Detalles</a></td>
+        <td><a href="{% url 'home:update_lead' lead.pk %}">
+        <i class="fas fa-upload" style="color: #09B801;">Actualizar</a></td>
+        <td><a href="{% url 'home:delete_lead' lead.pk %}">
+        <i class="fas fa-trash" style="color: #E80606;">Borrar</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+
+#

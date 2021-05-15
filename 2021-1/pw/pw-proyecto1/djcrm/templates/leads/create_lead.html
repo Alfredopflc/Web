@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+{% block title %}Create Lead{% endblock title %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <form method = "POST">
+                {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <button class="btn btn-warning" type="reset">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}

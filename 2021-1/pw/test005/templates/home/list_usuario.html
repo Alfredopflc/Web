@@ -1,0 +1,15 @@
+{% extends "base/base.html" %}
+
+{% block tittle %}LIST USUARIO{% endblock %}
+
+{% block content %}
+<table class = "table">
+    {% for usuario in object_list %}
+        <tr>
+            <td>{{ usuario.producto }}</td>
+            <td>{{ usuario.color }}</td>
+            <td>{{ usuario.cantidad }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

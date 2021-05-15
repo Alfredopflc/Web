@@ -1,0 +1,25 @@
+{% extends "base/base.html" %}
+
+{% block title %}LIST JUEGOS{% endblock %}
+
+{% block content %}
+<table class="table tabel-striped">
+    <th>Personaje:</th>
+    <th>Color:</th>
+    <th>ID:</th>
+    <th></th>  
+    {% for lead in object_list %}
+    <tr>
+        <td>{{ lead.personaje }}</td>
+        <td>{{ lead.color }}</td>
+        <td>{{ lead.ID }}</td>
+        <td><a href="{% url 'home:detail_lead' lead.pk %}">
+        <i class="fas fa-edit" style="color: #3440FE;">Detalles</a></td>
+        <td><a href="{% url 'home:update_lead' lead.pk %}">
+        <i class="fas fa-upload" style="color: #09B801;">Actualizar</a></td>
+        <td><a href="{% url 'home:delete_lead' lead.pk %}">
+        <i class="fas fa-trash" style="color: #E80606;">Borrar</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

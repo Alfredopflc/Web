@@ -1,0 +1,25 @@
+{% extends "base/base.html" %}
+
+{% block title %}LIST PRODUCTO{% endblock %}
+
+{% block content %}
+<table class="table tabel-striped">
+    <th>Producto:</th>
+    <th>Color:</th>
+    <th>Cantidad:</th>
+    <th></th>  
+    {% for lead in object_list %}
+    <tr>
+        <td>{{ lead.producto }}</td>
+        <td>{{ lead.color }}</td>
+        <td>{{ lead.cantidad }}</td>
+        <td><a href="{% url 'home:detail_lead' lead.pk %}">
+        <i class="fas fa-edit" style="color: #3440FE;">Detalles</a></td>
+        <td><a href="{% url 'home:update_lead' lead.pk %}">
+        <i class="fas fa-upload" style="color: #09B801;">Actualizar</a></td>
+        <td><a href="{% url 'home:delete_lead' lead.pk %}">
+        <i class="fas fa-trash" style="color: #E80606;">Borrar</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

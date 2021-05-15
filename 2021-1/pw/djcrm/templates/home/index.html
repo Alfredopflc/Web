@@ -1,0 +1,22 @@
+{% extends "base/base.html" %}
+
+{% block title %}INDEX{% endblock %}
+
+
+
+{% block content %}
+
+<h1>{{ message }}</h1>
+
+<table class="table">
+    {% for num in numbers %}
+    <tr>
+        <td>{{ num }}</td>
+        <td>{{ num }}</td>
+        <td>{{ num }}</td>
+        <td>{{ num }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
