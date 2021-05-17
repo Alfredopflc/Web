@@ -13,5 +13,10 @@ urlpatterns = [
     path('update_lead/<int:pk>/', views.UpdateLeadView.as_view(), name = "update_lead"),
     path('delete_lead/<int:pk>/', views.DeleteLeadView.as_view(), name = "delete_lead"),
     path('login/', auth_views.LoginView.as_view(template_name = "leads/index.html"), name = "login"),
-    path('logout/', auth_views.LogoutView.as_view(template_name = "leads/index.html"), name = "logout")
+    path('logout/', auth_views.LogoutView.as_view(template_name = "leads/index.html"), name = "logout"),
+
+    ## AGENT ##
+    path('list_agent/', views.ListAgentView.as_view(),name="list_agent"),
+    path('detail_agent/<int:pk>/', views.DetailAgentView.as_view(),name="detail_agent"),
+
 ]

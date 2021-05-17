@@ -65,3 +65,25 @@ class DeleteLeadView(LoginRequiredMixin, generic.DeleteView):
     model = Lead
     success_url = reverse_lazy("leads:list_leads")
     login_url = "leads:login"
+
+
+
+
+
+
+
+### AGENT ###
+class ListAgentView(LoginRequiredMixin, generic.ListView):
+    template_name = "leads/list_agent.html"
+    #model = Lead
+    #queryset = Lead.objects.all().order_by("register_timestamp")
+    login_url = "leads:login"
+
+    def get_queryset(self):
+         return Agent.objects.all()
+
+
+class DetailAgentView(LoginRequiredMixin, generic.DetailView):
+    template_name= "leads/detail_agent.html"
+    queryset= Agent.objects.all()
+    login_url = "leads:login"
