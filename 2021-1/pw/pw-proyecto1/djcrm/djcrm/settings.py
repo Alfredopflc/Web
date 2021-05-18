@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     ### USER APPS ###
     'home',
     'principal',
-    'leads'
+    'leads',
+   ## 'api',
 ]
 
 MIDDLEWARE = [

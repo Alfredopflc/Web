@@ -1,11 +1,12 @@
 from django.shortcuts import render
+from django.urls.base import reverse
 from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 #from django.contrib.auth.models import
 
 from .models import Lead, Agent
-from .forms import LeadForm, UpdateLeadForm
+from .forms import LeadForm, UpdateLeadForm, CustomUserCreationForm
 # Create your views here.
 
 class Index(generic.TemplateView):
@@ -87,3 +88,11 @@ class DetailAgentView(LoginRequiredMixin, generic.DetailView):
     template_name= "leads/detail_agent.html"
     queryset= Agent.objects.all()
     login_url = "leads:login"
+
+
+class Signup(generic.CreateView):
+    template_name = "leads/signup.html"
+    form_class = CustomUserCreationForm
+
+    def get_success_url(self):
+        return reverse('leads:index')
