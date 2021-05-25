@@ -24,4 +24,9 @@ urlpatterns = [
     path('detail_agent/<int:pk>/', views.DetailAgentView.as_view(),name="detail_agent"),
     path('signup/', views.Signup.as_view(), name = "signup"),
 
+
+    ##urls endpoint ws/vl
+    path('ws/vl/list_lead', views.wsListLead, name = "wslistlead"),
+
+    path('v1/list_leads/', views.list_lead, name = "list_lead"),
 ]

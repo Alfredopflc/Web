@@ -7,7 +7,31 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Lead, Agent
 from .forms import LeadForm, UpdateLeadForm, CustomUserCreationForm
-# Create your views here.
+
+from django.http import HttpResponse
+from django.core import serializers
+
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.decorators import api_view
+from leads.serializers import LeadSerializer
+from .models import Lead
+
+@api_view(["GET", "POST"])
+def list_lead(request):
+    if request.method == "GET":
+        queryset = Lead.objects.all()
+        data = LeadSerializer(queryset, many = True)
+        return Response(data.data, status = status.HTTP_200_OK)
+    elif request.method =="POST":
+        data = LeadSerializer(data = request.data)
+        if data.is_valid():
+            data.save()
+            return Response(data.data, status = status.HTTP_201_CREATED)
+        return Response(data.errors, status = status.HTTP_400_BAD_REQUEST)
+
+
+
 
 class Index(generic.TemplateView):
     template_name = "leads/index.html"
@@ -89,10 +113,20 @@ class DetailAgentView(LoginRequiredMixin, generic.DetailView):
     queryset= Agent.objects.all()
     login_url = "leads:login"
 
-
+##SIGNUP USERS##
 class Signup(generic.CreateView):
     template_name = "leads/signup.html"
     form_class = CustomUserCreationForm
 
     def get_success_url(self):
         return reverse('leads:index')
+
+
+## ENDPOINT ##
+
+#ws/vl/list_lead
+def wsListLead(request):
+    data = serializers.serialize("json", Lead.objects.all())
+    return HttpResponse(data, content_type = "application/json")
+    #return HttpResponse(data, content_type = "appLocation/json")
+

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'home',
     'principal',
     'leads',
+    'rest_framework',
    ## 'api',
 ]
 
