@@ -27,6 +27,9 @@ urlpatterns = [
 
     ##urls endpoint ws/vl
     path('ws/vl/list_lead', views.wsListLead, name = "wslistlead"),
-
     path('v1/list_leads/', views.list_lead, name = "list_lead"),
+    path('v1/detail_update_delete_lead/<int:pk>/', views.detail_update_lead, name ="detail_update_delete"),
+    path('ws/cliente/leads/', views.wsCliente, name = "wscliente"),
+
+    path('ws/cliente/leads/post', views.wsClientPost, name ="wsclient_post")
 ]

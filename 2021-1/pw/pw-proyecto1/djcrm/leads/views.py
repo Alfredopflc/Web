@@ -17,12 +17,16 @@ from rest_framework.decorators import api_view
 from leads.serializers import LeadSerializer
 from .models import Lead
 
+import requests
+
 @api_view(["GET", "POST"])
 def list_lead(request):
+    #List
     if request.method == "GET":
         queryset = Lead.objects.all()
         data = LeadSerializer(queryset, many = True)
         return Response(data.data, status = status.HTTP_200_OK)
+    #Create
     elif request.method =="POST":
         data = LeadSerializer(data = request.data)
         if data.is_valid():
@@ -30,6 +34,27 @@ def list_lead(request):
             return Response(data.data, status = status.HTTP_201_CREATED)
         return Response(data.errors, status = status.HTTP_400_BAD_REQUEST)
 
+
+@api_view(["GET", "PUT", "DELETE"])
+def detail_update_lead(request, pk=None):
+    queryset = Lead.objects.filter(id=pk).first()
+    if queryset:
+        #detail
+        if request.method == "GET":
+            data = LeadSerializer(queryset)
+            return Response(data.data, status=status.HTTP_200_OK)
+        #Update
+        elif request.method == "PUT":
+            data = LeadSerializer(queryset, data = request.data)
+            if data.is_valid():
+                data.save()
+                return Response(data.data)
+            return Response(data.errors, status = status.HTTP_400_BAD_REQUEST)
+        #Delete
+        elif request.method == "DELETE":
+            queryset.delete()
+            return Response({"message": "Lead Destroy Successsfull"}, status=status.HTTP_200_OK)
+    return Response({"message": "Lead Not Found"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -130,3 +155,35 @@ def wsListLead(request):
     return HttpResponse(data, content_type = "application/json")
     #return HttpResponse(data, content_type = "appLocation/json")
 
+def wsCliente(request):
+    url = "http://localhost:8000/v1/list_leads/"
+    response = requests.get(url)
+    response = response.json()
+
+    context = {
+        "object_list": response
+    }
+    return render(request, "leads/wsclient.html", context)
+
+
+def wsClientPost(request):
+    url = "http://localhost:8000/v1/list_leads/"
+    data = {
+    
+        "frist_name": "Jhon33",
+        "last_name": "Wick33",
+        "age": 35,
+        "personal_email": "john22@wick.com",
+        "cell_phone": "123456722",
+        "local_phone": "123456722",
+        "marketing_strategy": "FACEBOOK",
+        "contacted": False,
+        "captured": False,
+        "agent": 1
+    }
+    response = requests.post(url, data = data)
+
+    context = {
+        "status_code": response.status_code
+    }
+    return render(request, "leads/wsclient_post.html", context)
